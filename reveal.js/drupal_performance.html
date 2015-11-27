@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Drupal performance</title>
+		<meta name="description" content="Drupal performance">
+		<meta name="author" content="Ignacio J. Bonelli">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section>
+  <section>
+    <h1>Como mejorar la performance en Drupal</h1>
+  </section>
+  <section>
+    <h1>¿Quien soy yo?</h1>
+    <ul>
+      <li>Ignacio J. Bonelli (Ingeniero en Electrónica)</li>
+      <li>Casi toda mi carrera profesional trabajando en sistemas</li>
+      <li>Docente de Informática1 en la UTN (programación en C)</li>
+      <li>Fan de Linux y el Opensource</li>
+      <ul>Y en mis tiempos libres:
+        <li>Padre de dos</li>
+        <li>Fan de todo lo referente a SciFi</li>
+        <li>Deporte! Correr, nadar y remar.</li>
+      </ul>
+      <li>Mas sobre mi y contacto: <a href="http://www.nachodigital.com.ar/es">www.nachodigital.com.ar</a></li>
+    </ul>
+  </section>
+  <section>
+    <h2>¿Como mejorar <br>la performance en Drupal?</h2>
+    <ul>
+      <li>Apoyandonos en otros proyectos opensource</li>
+      <li>APC: Advance PHP Caching</li>
+      <li>Memcache/Redis</li>
+      <li>Drupal's cache</li>
+      <li>Varnish</li>
+    </ul>
+  </section>
+  <section>
+    <h1>¿Nginx o Apache? (I)</h1>
+    <ul>En resumen: Cuestión de gusto...
+      <li>No es donde vamos a hacer la diferencia</li>
+      <li>Muchas razones para usar uno u otro:
+        <ul>
+          <li>Apache:
+            <ul style="font-size: 32px;">
+              <li>Muy conocido, funciona bien</li>
+              <li>Diseños estable (20 años)</li>
+              <li>Mejoras de performance (MPM)</li>
+              <li>35% all sites (<a href="http://news.netcraft.com/archives/2015/09/16/september-2015-web-server-survey.html">netcraft</a>)</li>
+            </ul>
+          </li>
+          <li>Nginx:
+            <ul style="font-size: 32px;">
+              <li>Diseñado mas moderno pensando en performance</li>
+              <li>Especialmente diseñado para escalar mejor</li>
+              <li>15.6% all sites (<a href="http://news.netcraft.com/archives/2015/09/16/september-2015-web-server-survey.html">netcraft</a>)</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h1>¿Nginx o Apache? (II)</h1>
+    <br>
+    <p style="text-align: left;">En resumen:</p>
+    <ul>
+      <li>No es donde vamos a hacer la diferencia</li>
+      <li>Yo uso apache mas que nada por legacy y compatibilidad</li>
+      <li>Articulos:
+        <ul>
+          <li><a href="https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations">DigitalOcean</a> (Simple Cloud Hosting)</li>
+          <li><a href="https://www.nginx.com/blog/nginx-vs-apache-our-view/">nginx</a></li>
+          <li><a href="https://anturis.com/blog/nginx-vs-apache/">Anturis</a> (Cloud-Based Monitoring)</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h1>¿Nginx o Apache?</h1>
+  </section>
+
+<section>
+* Que trae Drupal y como configurarlo para una mejor performance
+** Que viene con core
+** Modulos que podemos usar
+* Que podemos hacer/usar fuera de Drupal?
+** Configurando Varnish (en Linux)
+** Configurando Memcache/Redis (en Linux)
+</section>
+
+  <section>
+    <h3>Algo para el camino...</h3>
+    <ul>
+      <li>Drupalcon 2014 Austin: <a href="https://austin2014.drupal.org/comment/2293.html">Planning for performance</a> (<a href="http://www.slideshare.net/jrbeeman/drupalcon-austin-planning-for-performance">Slides</a> + <a href="https://www.youtube.com/watch?v=AG7C7DoBt7Q">YouTube</a>)</li>
+      <li>Drupal7 vs Drupal8: <a href="https://www.appnovation.com/blog/drupal-7-vs-drupal-8-performance-comparison">appnovation</a> y <a href="http://alexrayu.com/blog/drupal-739-vs-drupal-8-rc1-performance">AlexRayu</a></li>
+    </ul>
+  </section>
+</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
