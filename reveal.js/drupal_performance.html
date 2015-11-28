@@ -60,16 +60,18 @@
   <section>
     <h2>¿Como mejorar <br>la performance en Drupal?</h2>
     <ul>
-      <li>Apoyandonos en otros proyectos opensource</li>
-      <li>APC: Advance PHP Caching</li>
-      <li>Memcache/Redis</li>
       <li>Drupal's cache</li>
-      <li>Varnish</li>
+      <li>Otros proyectos opensource al rescate:</li>
+      <ul>
+        <li>APC: Advance PHP Caching</li>
+        <li>Memcache/Redis</li>
+        <li>Varnish</li>
+      </ul>
     </ul>
   </section>
   <section>
     <h1>¿Nginx o Apache? (I)</h1>
-    <ul>En resumen: Cuestión de gusto...
+    <ul>
       <li>No es donde vamos a hacer la diferencia</li>
       <li>Muchas razones para usar uno u otro:
         <ul>
@@ -77,7 +79,7 @@
             <ul style="font-size: 32px;">
               <li>Muy conocido, funciona bien</li>
               <li>Diseños estable (20 años)</li>
-              <li>Mejoras de performance (MPM)</li>
+              <li>Multi-process mode (MPM)</li>
               <li>35% all sites (<a href="http://news.netcraft.com/archives/2015/09/16/september-2015-web-server-survey.html">netcraft</a>)</li>
             </ul>
           </li>
@@ -99,11 +101,12 @@
     <ul>
       <li>No es donde vamos a hacer la diferencia</li>
       <li>Yo uso apache mas que nada por legacy y compatibilidad</li>
+      <li>Para PHP parece que Nginx anda mejor (<a href="http://www.theorganicagency.com/apache-vs-nginx-performance-comparison/">test</a>)</li>
       <li>Articulos:
         <ul>
+          <li><a href="https://anturis.com/blog/nginx-vs-apache/">Anturis</a> (Cloud-Based Monitoring)</li>
           <li><a href="https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations">DigitalOcean</a> (Simple Cloud Hosting)</li>
           <li><a href="https://www.nginx.com/blog/nginx-vs-apache-our-view/">nginx</a></li>
-          <li><a href="https://anturis.com/blog/nginx-vs-apache/">Anturis</a> (Cloud-Based Monitoring)</li>
         </ul>
       </li>
     </ul>
@@ -113,9 +116,10 @@
     <p style="text-align: left;">Cosas a cachear:</p>
     <ul>
       <li>Código PHP compilado (APC)</li>
+      <li>Resultados de pedidos a la DB (<a href="http://dev.mysql.com/doc/refman/5.7/en/query-cache.html">MySQL cache</a>)</li>
       <li>Variables y datos ya procesados (Memcached/Redis)</li>
       <li>Páginas completas generadas (Boost/Varnish)</li>
-      <li>Partes de páginas (Views/Panels)</li>
+      <li>Partes de páginas o modulos (Views/Panels)</li>
     </ul>
   </section>
   <section>
@@ -124,16 +128,16 @@
         <li>Tráfico Anónimo:</li>
           <ul>
             <li>Nada cambia: Podemos cachear la página entera</li>
-            <li>Así podemos evitar el webserver por completo (Varnish)</li>
+            <li>Así podemos evitar el webserver por completo (Varnish/<a href="https://www.nginx.com/resources/wiki/start/topics/examples/reverseproxycachingexample/">nginxCacheProxy</a>)</li>
           </ul>
         <li>LoggedIn:</li>
           <ul>
             <li>Algunas cosas no cambian</li>
-            <li>Es importante optimizar la velocidad para generar una página</li>
+            <li>Mejorar la velocidad de generacón de la página</li>
             <li>Es importante hacer cosas para:
               <ul>
-                <li>acceder a los datos mas rápido (Memcached/Redis)</li>
-                <li>correr el código mas rápido (APC/PHP-FPM)</li>
+                <li>Acceder a los datos mas rápido (Memcached/Redis)</li>
+                <li>Correr el código mas rápido (APC)</li>
               </ul>
             </li>
           </ul>
@@ -143,7 +147,7 @@
     <h1>Demoras en el server</h1>
     <ul>
       <li>Servidor Web</li>
-      <li>Correr PHP (PHP-FPM vs mod_php)</li>
+      <li>Correr PHP (APC, PHP-FPM vs mod_php)</li>
       <li>Servidor de Base de datos: (<a href="https://www.drupal.org/project/mongodb">MongoDB</a> & Syslog)</li>
     </ul>
   </section>
@@ -184,7 +188,16 @@
 </section>
 
   <section>
-    <h1>Probando la performance</h1>
+    <h2>Probando la performance</h2>
+    <ul>
+      <li>Doc Zim: "Strees Test And WebSite Performance"</li>
+      <li>Herramientas SVN sysadmin...</li>
+      <li>Servicios Online...</li>
+      <li>Munin, webstats...</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Analizando el funcionamiento del server</h2>
     <ul>
       <li>Doc Zim: "Strees Test And WebSite Performance"</li>
       <li>Herramientas SVN sysadmin...</li>
