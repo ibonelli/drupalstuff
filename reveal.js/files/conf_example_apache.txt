@@ -1,0 +1,39 @@
+# ============================================
+# -- SSL frontend
+# ============================================
+<VirtualHost 1.2.3.4:443>
+  ServerName  misitio.midominio.com
+  ServerAdmin webadmin@misitio.midominio.com
+
+  SSLEngine on
+  SSLCertificateFile    /path/to/file.crt
+  SSLCertificateKeyFile /path/to/file.key
+  SSLCertificateChainFile /path/to/ca_bundle.crt
+
+  ProxyPreserveHost On
+  ProxyPass / http://127.0.0.1:80/
+
+  RequestHeader set X-Forwarded-Proto https
+  RequestHeader set X-Forwarded-Port 443
+</VirtualHost>
+
+# ============================================
+# -- HTTP varnish backend
+# ============================================
+<VirtualHost *:6080>
+  ServerName  misitio.midominio.com
+  ServerAdmin webadmin@misitio.midominio.com
+
+  # Solo si se quiere forzar siempre SSL
+  # Removerlo para poder navegar el sitio en HTTP
+  SetEnvIf X-Forwarded-Proto "^https$" HTTPS=on
+  <If "env('HTTPS') != 'on'">
+    RedirectPermanent / https://mantis.tincan.co.uk/
+  </If>
+
+  DocumentRoot /var/www/misitio/public_html
+
+  <Directory /var/www/misitio/public_html>
+    Require all granted
+  </Directory>
+</VirtualHost>

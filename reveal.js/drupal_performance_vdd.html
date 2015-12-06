@@ -275,7 +275,7 @@ drush cc
     <p><a href="files/conf_example_apache.txt">Ejemplo de configuración de los apache</a></p>
   </section>
   <section>
-    <h1>APC</h1>
+    <h1>APC (I)</h1>
     <ul>
       <li><a href="http://php.net/manual/en/book.apc.php">Alternative PHP Cache (APC)</a></li>
       <li>Como PHP es interpretado, esto hace caching del "opcode" resultante del PHP</li>
@@ -288,11 +288,11 @@ $ sudo apt-get install php-apc
     <p>¡También es útil en ambientes locales!</p>
   </section>
   <section>
-    <h2>Reportes de APC</h2>
+    <h1>APC (II)</h1>
     <a href="files/apc_info.png"><img src="files/apc_info.png"/></a>
   </section>
   <section>
-    <h1>Memcached</h1>
+    <h1>Memcached (I)</h1>
     <p>¿O por que cachear en DB cuando tenemos memoria?</p>
     <ul>
       <li>Es un server aparte (como Varnish)</li>
@@ -303,25 +303,6 @@ $ sudo apt-get install php-apc
     <pre style="width: 500px;"><code data-trim style="font-size: 24px; width: 500px;" class="bash">
 $ sudo apt-get install memcached
     </code></pre>
-    <br>
-    <p>Se necesita un módulo para integrarlo con <br>Drupal's Cache API: <a href="https://www.drupal.org/project/memcache">Memcache API and Integration</a></p>
-  </section>
-  <section>
-    <h2>Reportes de Memcached</h2>
-    <a href="files/memcache_info.png"><img src="files/memcache_info.png"/></a>
-  </section>
-  <section>
-    <h2>Configurando Memcached</h2>
-    <p>Agregar al final del settings.php:</p>
-    <pre style="width: 1200px;"><code data-trim style="font-size: 24px; width: 1200px;" class="php">
-# memcache config
-$conf['cache_backends'][] = './sites/misitio/modules/memcache/memcache.inc';
-$conf['cache_default_class'] = 'MemCacheDrupal';
-$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
-$conf['memcache_key_prefix'] = 'misitio-env';
-    </code></pre>
-    <br>
-    <p>Drupal's cache API: <br><a href="http://www.exove.com/techblog/drupal-7-cache-bins-why-and-how-to/">Drupal 7 cache bins</a> y <a href="https://www.lullabot.com/articles/a-beginners-guide-to-caching-data-in-drupal-7">Caching Data in Drupal 7</a></p>
   </section>
   <section>
     <h2>APC, Memcached y <br>Drupal cache bins</h2>
@@ -341,28 +322,7 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
     </code></pre>
   </section>  
   <section>
-    <h2>¿Memcached vs Redis?</h2>
-    <ul>
-      <li>Muchas razones para usar uno u otro:
-        <ul>
-          <li>Memcached:
-            <ul style="font-size: 32px;">
-              <li>Baja complejidad, solo hace bien una cosa.</li>
-              <li>Diseño muy estable y probado</li>
-              <li>No soporta clustering</li>
-            </ul>
-          </li>
-          <li>Redis:
-            <ul style="font-size: 32px;">
-              <li>Mas funciones (no solo key-Value)</li>
-              <li>Ahora misma performance que Memcached para key-Value</li>
-              <li>Mucha mas funcionalidad...</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <p><a href="http://www.bigdatalittlegeek.com/blog/2014/3/25/memcached-vs-redis">Comparación entre ambos</a> y <a href="https://www.drupal.org/project/redis">Módulo Redis para Drupal</a></p>
+    <h1>¿Memcached vs Redis?</h1>
   </section>
 </section>
 <section>
