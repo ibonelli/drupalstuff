@@ -136,13 +136,13 @@
     </ul>
   </section>
   <section>
-    <h2>Configuración del cache de Drupal (I)</h2>
+    <h3>Configuración del cache de Drupal (I)</h3>
     <a href="files/performance0.png"><img src="files/performance1.png"/></a>
     <p>¿Cada 1h? ¿Cada 3hs? ¿Cada 6hs?</p>
     <p>Y si hago "<span style="font-family: monospace; font-size: 85%;">drush cc all</span>" una vez al día?</p>
   </section>
   <section>
-    <h2>Configuración del cache de Drupal (II)</h2>
+    <h3>Configuración del cache de Drupal (II)</h3>
     <pre><code data-trim style="font-size: 24px;" class="bash">
 drush cc
 	Enter a number to choose which cache to clear.
@@ -183,6 +183,20 @@ drush cc
       <li>Mas complejidad... No aconsejable!</li>
       <li>Mejor: APC, Memcached, y Varnish!</li>
     </ul>
+  </section>
+  <section>
+    <h2>Drupal7 vs Drupal8</h2>
+    <p style="text-align: left;">Articulos:</p>
+    <ul class="col" style="width: 500px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/Drupal7_vs_Drupal8.png"><img src="files/Drupal7_vs_Drupal8.png"/></a>
+    </ul>
+    <ul class="col" style="width: 300px; display: inline-block; vertical-align: top; font-size: 75%;">
+      <li><a href="http://wimleers.com/blog/drupal-8-page-caching-enabled-by-default">Drupal 8 now has page caching enabled by default</a></li>
+      <li><a href="http://buytaert.net/making-drupal-8-fly">Making Drupal 8 fly</a></li>
+      <li><a href="https://www.appnovation.com/blog/drupal-7-vs-drupal-8-performance-comparison">Drupal 7 vs Drupal 8 Performance Comparison</a></li>
+      <li><a href="http://alexrayu.com/blog/drupal-739-vs-drupal-8-rc1-performance">Drupal 7.39 VS Drupal 8 RC1 Performance</a></li>
+    </ul>
+    <p>En resumen: ¡Mucho mas rápido!</p>
   </section>
 </section>
 <section>
@@ -259,7 +273,7 @@ drush cc
   !-->
   <section>
     <h1>Varnish (II)</h1>
-    <p>Si quiero utilizar otro cache las opciones son: Squid o Nginx.</p>
+    <p>Otras opciones de cache: <a href="http://www.squid-cache.org/">Squid</a> o <a href="https://www.nginx.com/resources/admin-guide/reverse-proxy/">Nginx</a>.</p>
     <p>Pero, Varnish está especialmente diseñado para esto.</p>
     <p style="text-align: left;">Como controlar el cache:</p>
     <ul>
@@ -368,21 +382,63 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
 <section>
   <section>
     <h2>Probando la performance</h2>
+    <p style="text-align: left;">Dos formas:</p>
     <ul>
-      <li>Doc Zim: "Strees Test And WebSite Performance"</li>
-      <li>Herramientas SVN sysadmin...</li>
-      <li>Servicios Online...</li>
-      <li>Munin, webstats...</li>
+      <li>En producción, largo plazo</li>
+      <ul>
+        <li><a href="http://munin-monitoring.org/">Munin</a>: RAM, WebServer, etc...</li>
+        <li><a href="http://www.projet-webdruid.org/">Webdruid</a>: WebServer+Varnish logs</li>
+        <li>WebStats:</li>
+        <p style="font-family: monospace; font-size: 60%; width: 1200px;">curl -o /dev/null -w %{time_total} -k midominio.com 2>/dev/null</p>
+      </ul>
+      <li>Stress tests puntuales</li>
+        <ul>
+          <li><a href="https://httpd.apache.org/docs/2.2/programs/ab.html">ApacheBench</a>, <a href="https://www.joedog.org/siege-home/">Siege</a>, <a href="https://github.com/wg/wrk">WRK</a>.</li>
+          <li>sar (System Activity Report): <a href="https://packages.debian.org/jessie/sysstat">Debian</a>, <a href="http://sourceforge.net/projects/ksar/">Gráficos</a> y un <a href="http://www.linuxjournal.com/content/sysadmins-toolbox-sar">articulo</a></li>
+          <ul><li style="font-size: 75%;"><a href="files/siege_sar_StressTest.zip">Scripts de ejemplo</a></li></ul>
+          <li><a href="http://php.net/manual/en/book.xhprof.php">PHP Hierarchical Profiler</a> y su <a href="https://www.drupal.org/project/xhprof">módulo para Drupal</a></li>
+        </ul>
     </ul>
   </section>
   <section>
-    <h2>Analizando el funcionamiento del server</h2>
-    <ul>
-      <li>Doc Zim: "Strees Test And WebSite Performance"</li>
-      <li>Herramientas SVN sysadmin...</li>
-      <li>Servicios Online...</li>
-      <li>Munin, webstats...</li>
+    <h2>Munin y WebStats:</h2>
+    <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <li><a href="files/munin_apache_accesses-day.png"><img src="files/munin_apache_accesses-day.png"/></a></li>
+      <li><a href="files/munin_mysql_queries-day.png"><img src="files/munin_mysql_queries-day.png"/></a></li>
     </ul>
+    <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <li><a href="files/munin_load-day.png"><img src="files/munin_load-day.png"/></a></li>
+      <li><a href="files/munin_webstats-week.png"><img src="files/munin_webstats-week.png"/></a></li>
+    </ul>
+  </section>
+  <section>
+    <h2>Servicios OnLine</h2>
+    <ul>
+      <li>Servicios Online: <a href="http://newrelic.com/sp/brand">NewRelic</a> y <a href="https://loader.io/">Loader</a></li>
+      <li>Static assets: <a href="https://www.drupal.org/project/cloudfront">CloudFront</a>, <a href="https://www.drupal.org/project/cdn">CDN</a>, otros...</li>
+      <li><a href="https://www.drupal.org/project/amazons3">Amazon S3</a> o usar un "Media" server</li>
+      <li>Cloudflare: <a href="https://www.cloudflare.com/">Servicio</a> e <a href="https://www.drupal.org/project/cloudflare">integración Drupal</a></li>
+    </ul>
+  </section>
+  <section>
+    <h3>Y del lado del web browser: <a href="http://yslow.org/">YSlow</a></h3>
+    <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>Sitio con problemas</p>
+      <li><a href="files/YSlow_NotOk.png"><img src="files/YSlow_NotOk.png"/></a></li>
+    </ul>
+    <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>Reporte OK!</p>
+      <li><a href="files/YSlow_Ok.png"><img src="files/YSlow_Ok.png"/></a></li>
+    </ul>
+    <br>
+    <p>Módulo <a href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Expire</a> y <a href="http://httpd.apache.org/docs/2.4/mod/mod_deflate.html">Deflate</a> (ambos de Apache)</p>
+  </section>
+  <section>
+    <h3>Todo esto para poder...</h3>
+    <p>¡Correr Drupal en un RaspberryPi Stack!</p>
+    <a href="files/Dramble_Raspberry-Pi-2_cluster.jpg"><img src="files/Dramble_Raspberry-Pi-2_cluster.jpg"/></a>
+    <br>
+    <p><a href="http://www.midwesternmac.com/blogs/jeff-geerling/introducing-dramble-raspberry">Dramble intro</a> y <a href="https://dev.acquia.com/blog/drupal-and-the-raspberry-pi/06/11/2015/8116">Dramble corriendo Debian</a></p>
   </section>
   <section>
     <h3>Algo para el camino...</h3>
@@ -390,7 +446,6 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
       <li>Drupalcon 2014 Austin: <br><span style="margin-left:4em"><a href="https://austin2014.drupal.org/session/caching-deep-dive.html">The caching deep dive</a> (<a href="https://ohthehugemanatee.org/blog/2014/06/09/authenticated-user-caching-in-drupal/">Blog</a> + <a href="https://www.youtube.com/watch?v=VFv_P-YI-ew">YouTube</a> + <a href="https://ohthehugemanatee.org/downloads/drupal/varnish101.zip">VM</a>)</span></li>
       <li>Drupalcon 2013 Portland: <br><span style="margin-left:4em"><a href="https://portland2013.drupal.org/node/2208.html">Performance testing</a> (<a href="https://portland2013.drupal.org/sites/default/files/slides/PerformanceTesting_0.pdf">Slides</a> + <a href="https://www.youtube.com/watch?v=YfgmJE27b74">YouTube</a>)</span></li>
       <li>Drupalcon 2014 Austin: <br><span style="margin-left:4em"><a href="https://austin2014.drupal.org/comment/2293.html">Planning for performance</a> (<a href="http://www.slideshare.net/jrbeeman/drupalcon-austin-planning-for-performance">Slides</a> + <a href="https://www.youtube.com/watch?v=AG7C7DoBt7Q">YouTube</a>)</span></li>
-      <li>Drupal7 vs Drupal8: <a href="https://www.appnovation.com/blog/drupal-7-vs-drupal-8-performance-comparison">appnovation</a> y <a href="http://alexrayu.com/blog/drupal-739-vs-drupal-8-rc1-performance">AlexRayu</a></li>
       <li>Drupal community docs: <a href="https://www.drupal.org/node/326504">Caching to improve performance</a></li>
       <li><a href="http://colans.net/blog/drupal-7-performance-optimization-options-and-checklist">Drupal 7 Performance Optimization Options and Checklist</a></li>
     </ul>
