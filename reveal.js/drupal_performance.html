@@ -76,7 +76,7 @@
   </section>
   <section>
     <h2>Drupal's Stack (I)</h2>
-    <img src="files/WebStack.png"/>
+    <img src="files/performance/WebStack.png"/>
     <p style="text-align: left;">Todo en una máquina:</p>
     <ul>
       <li>Intel Xeon 3.5GHz (QuadCore MT)</li>
@@ -85,11 +85,11 @@
   </section>
   <section>
     <h2>Drupal's Stack (II)</h2>
-    <a href="files/Architecture.png"><img src="files/Architecture.png"/></a>
+    <a href="files/performance/Architecture.png"><img src="files/performance/Architecture.png"/></a>
   </section>
   <section>
     <h2>Drupal's Stack (III)</h2>
-    <a href="files/Scaling.png"><img src="files/Scaling.png"/></a>
+    <a href="files/performance/Scaling.png"><img src="files/performance/Scaling.png"/></a>
   </section>
   <section>
     <h2>Tráfico Anónimo vs LoggedIn</h2>
@@ -137,7 +137,7 @@
   </section>
   <section>
     <h3>Configuración del cache de Drupal (I)</h3>
-    <a href="files/performance0.png"><img src="files/performance1.png"/></a>
+    <a href="files/performance/performance0.png"><img src="files/performance/performance1.png"/></a>
     <p>¿Cada 1h? ¿Cada 3hs? ¿Cada 6hs?</p>
     <p>Y si hago "<span style="font-family: monospace; font-size: 85%;">drush cc all</span>" una vez al día?</p>
   </section>
@@ -158,7 +158,7 @@ drush cc
 	 [9]   :  registry
 	 [10]  :  views
     </code></pre>
-<p>Articulos sobre blocks y views: <a href="https://pantheon.io/docs/articles/drupal/caching-in-drupal-modules/">Pantheon</a> y <a href="http://blog.millwoodonline.co.uk/post/125828705273/drupal-7-performance-gains-with-views-cache">Millwood blog</a></p>
+    <p>Articulos sobre blocks y views: <a href="https://pantheon.io/docs/articles/drupal/caching-in-drupal-modules/">Pantheon</a> y <a href="http://blog.millwoodonline.co.uk/post/125828705273/drupal-7-performance-gains-with-views-cache">Millwood blog</a></p>
   </section>
   <section>
     <h2>Modulos que pueden mejorar la performance</h2>
@@ -188,7 +188,7 @@ drush cc
     <h2>Drupal7 vs Drupal8</h2>
     <p style="text-align: left;">Articulos:</p>
     <ul class="col" style="width: 500px; display: inline-block; vertical-align: top; list-style-type: none;">
-      <a href="files/Drupal7_vs_Drupal8.png"><img src="files/Drupal7_vs_Drupal8.png"/></a>
+      <a href="files/performance/Drupal7_vs_Drupal8.png"><img src="files/performance/Drupal7_vs_Drupal8.png"/></a>
     </ul>
     <ul class="col" style="width: 300px; display: inline-block; vertical-align: top; font-size: 75%;">
       <li><a href="http://wimleers.com/blog/drupal-8-page-caching-enabled-by-default">Drupal 8 now has page caching enabled by default</a></li>
@@ -284,9 +284,9 @@ drush cc
   </section>
   <section>
     <h1>¿Caching SSL?</h1>
-    <a href="files/SSLsetup.png"><img src="files/SSLsetup.png"/></a>
+    <a href="files/performance/SSLsetup.png"><img src="files/performance/SSLsetup.png"/></a>
     <p>Por que Varnish no soporta SSL (ni va a soportarlo)</p>
-    <p><a href="files/conf_example_apache.txt">Ejemplo de configuración de los apache</a></p>
+    <p><a href="files/performance/conf_example_apache.txt">Ejemplo de configuración de los apache</a></p>
   </section>
   <section>
     <h1>APC</h1>
@@ -303,7 +303,7 @@ $ sudo apt-get install php-apc
   </section>
   <section>
     <h2>Reportes de APC</h2>
-    <a href="files/apc_info.png"><img src="files/apc_info.png"/></a>
+    <a href="files/performance/apc_info.png"><img src="files/performance/apc_info.png"/></a>
   </section>
   <section>
     <h1>Memcached</h1>
@@ -322,7 +322,7 @@ $ sudo apt-get install memcached
   </section>
   <section>
     <h2>Reportes de Memcached</h2>
-    <a href="files/memcache_info.png"><img src="files/memcache_info.png"/></a>
+    <a href="files/performance/memcache_info.png"><img src="files/performance/memcache_info.png"/></a>
   </section>
   <section>
     <h2>Configurando Memcached</h2>
@@ -395,7 +395,7 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
         <ul>
           <li><a href="https://httpd.apache.org/docs/2.2/programs/ab.html">ApacheBench</a>, <a href="https://www.joedog.org/siege-home/">Siege</a>, <a href="https://github.com/wg/wrk">WRK</a>.</li>
           <li>sar (System Activity Report): <a href="https://packages.debian.org/jessie/sysstat">Debian</a>, <a href="http://sourceforge.net/projects/ksar/">Gráficos</a> y un <a href="http://www.linuxjournal.com/content/sysadmins-toolbox-sar">articulo</a></li>
-          <ul><li style="font-size: 75%;"><a href="files/siege_sar_StressTest.zip">Scripts de ejemplo</a></li></ul>
+          <ul><li style="font-size: 75%;"><a href="files/performance/siege_sar_StressTest.zip">Scripts de ejemplo</a></li></ul>
           <li><a href="http://php.net/manual/en/book.xhprof.php">PHP Hierarchical Profiler</a> y su <a href="https://www.drupal.org/project/xhprof">módulo para Drupal</a></li>
         </ul>
     </ul>
@@ -403,12 +403,12 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
   <section>
     <h2>Munin y WebStats:</h2>
     <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
-      <li><a href="files/munin_apache_accesses-day.png"><img src="files/munin_apache_accesses-day.png"/></a></li>
-      <li><a href="files/munin_mysql_queries-day.png"><img src="files/munin_mysql_queries-day.png"/></a></li>
+      <li><a href="files/performance/munin_apache_accesses-day.png"><img src="files/performance/munin_apache_accesses-day.png"/></a></li>
+      <li><a href="files/performance/munin_mysql_queries-day.png"><img src="files/performance/munin_mysql_queries-day.png"/></a></li>
     </ul>
     <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
-      <li><a href="files/munin_load-day.png"><img src="files/munin_load-day.png"/></a></li>
-      <li><a href="files/munin_webstats-week.png"><img src="files/munin_webstats-week.png"/></a></li>
+      <li><a href="files/performance/munin_load-day.png"><img src="files/performance/munin_load-day.png"/></a></li>
+      <li><a href="files/performance/munin_webstats-week.png"><img src="files/performance/munin_webstats-week.png"/></a></li>
     </ul>
   </section>
   <section>
@@ -424,11 +424,11 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
     <h3>Y del lado del web browser: <a href="http://yslow.org/">YSlow</a></h3>
     <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
       <p>Sitio con problemas</p>
-      <li><a href="files/YSlow_NotOk.png"><img src="files/YSlow_NotOk.png"/></a></li>
+      <li><a href="files/performance/YSlow_NotOk.png"><img src="files/performance/YSlow_NotOk.png"/></a></li>
     </ul>
     <ul class="col" style="width: 380px; display: inline-block; vertical-align: top; list-style-type: none;">
       <p>Reporte OK!</p>
-      <li><a href="files/YSlow_Ok.png"><img src="files/YSlow_Ok.png"/></a></li>
+      <li><a href="files/performance/YSlow_Ok.png"><img src="files/performance/YSlow_Ok.png"/></a></li>
     </ul>
     <br>
     <p>Módulo <a href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Expire</a> y <a href="http://httpd.apache.org/docs/2.4/mod/mod_deflate.html">Deflate</a> (ambos de Apache)</p>
@@ -436,7 +436,7 @@ $conf['cache_class_cache_form'] = 'DrupalDatabaseCache'; // Non-volatile.
   <section>
     <h3>Todo esto para poder...</h3>
     <p>¡Correr Drupal en un RaspberryPi Stack!</p>
-    <a href="files/Dramble_Raspberry-Pi-2_cluster.jpg"><img src="files/Dramble_Raspberry-Pi-2_cluster.jpg"/></a>
+    <a href="files/performance/Dramble_Raspberry-Pi-2_cluster.jpg"><img src="files/performance/Dramble_Raspberry-Pi-2_cluster.jpg"/></a>
     <br>
     <p><a href="http://www.midwesternmac.com/blogs/jeff-geerling/introducing-dramble-raspberry">Dramble intro</a> y <a href="https://dev.acquia.com/blog/drupal-and-the-raspberry-pi/06/11/2015/8116">Dramble corriendo Debian</a></p>
   </section>

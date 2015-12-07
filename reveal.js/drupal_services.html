@@ -45,35 +45,106 @@
     <h4>(XML, JSON, otros...)</h4>
   </section>
   <section>
-  <h1>¿Quien soy yo?</h1>
-  <ul>
-    <li>Ignacio J. Bonelli (Ingeniero en Electrónica)</li>
-    <li>Casi toda mi carrera profesional trabajando en sistemas</li>
-    <li>Docente de Informática1 en la UTN (programación en C)</li>
-    <li>Fan de Linux y el Opensource</li>
-    <ul>Y en mis tiempos libres:
-      <li>Padre de dos</li>
-      <li>Fan de todo lo referente a SciFi</li>
-      <li>Deporte! Correr, nadar y remar.</li>
+    <h1>¿Quien soy yo?</h1>
+    <ul>
+      <li>Ignacio J. Bonelli (Ingeniero en Electrónica)</li>
+      <li>Casi toda mi carrera profesional trabajando en sistemas</li>
+      <li>Trabajo para <a href="http://tincan.co.uk/">Tincan</a> (DrupalShop UK)</li>
+      <li>Docente de Informática1 en la UTN (programación en C)</li>
+      <li>Fan de Linux y el Opensource</li>
+      <p style="text-align: left;">Y en mis tiempos libres:</p>
+      <ul style="font-size: 32px;">
+        <li>Padre de dos</li>
+        <li>Fan de todo lo referente a SciFi</li>
+        <li>Deporte! Correr, nadar y remar.</li>
+      </ul>
+      <p>Mas sobre mi y contacto: <a href="http://www.nachodigital.com.ar/es">www.nachodigital.com.ar</a></p>
     </ul>
-    <li>Mas sobre mi y contacto: <a href="http://www.nachodigital.com.ar/es">www.nachodigital.com.ar</a></li>
-  </ul>
   </section>
+</section>
 
 <section>
-Ya en Drupal 7 tenemos un gran módulo para desarrollar/exponer servicios al usuario:
-* https://www.drupal.org/project/services
-* https://www.drupal.org/project/services_entity
-
-Estos servicios tienen flexibilidad en lo que pueden darnos:  PHP, XML, JSON, etc...
-Mucho de lo que nos dan solo necesita configuración y un poco de conocimientos generales de Drupal y su estructura de datos.
-
+  <section>
+    <h2>¿Por que usar Drupal como gestor de servicios?</h2>
+    <ul>
+      <li>Motor de aplicación movil</li>
+      <li>Headless Drupal</li>
+      <li>Integración general</li>
+    </ul>
+    <br><br>
+    <p>En resumen, poder exponer los datos de <br>Drupal de otra manera: JSON, XML, otros...</p>
+  </section>
+  <section>
+    <p style="text-align: left; margin-left:4em;">Drupal 7</p>
+    <ul style="font-size: 90%;">
+      <li><a href="https://www.drupal.org/project/services">Services</a></li>
+      <li><a href="https://www.drupal.org/project/services_entity">Services Entity</a></li>
+      <li>Una vez instalado/habilitado en: <br><span style="margin-left:4em;">Structure -> Services</span></li>
+    </ul>
+    <p style="text-align: left; margin-left:4em;">Drupal 8</p>
+    <ul style="font-size: 90%;">
+      <li>¡Integrado en core!</li>
+      <li>Módulo: RESTful Web Services</li>
+      <li>Una vez habilitado: <br><span style="margin-left:4em;">?!?!</span></li>
+    </ul>
+    <br><br>
+    <p style="font-size: 75%;">Para Drupal7 también existe otro módulo llamado <br><a href="https://www.drupal.org/project/restws">RESTful Web Services</a>, pero no es tan usado.</p>
+  </section>
+  <section>
+    <p>Mucho de lo que nos dan solo necesita <br>configuración y un poco de conocimientos generales <br>de Drupal y su estructura de datos.</p>
+    <br><br>
+    <h3>Servers</h3>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a></li>
+    </ul>
+  </section>
+  <section>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
 Esta charla comenzará desde el principio:
 * Como usarlos en Drupal 7
 * Como desarrollar un módulo apoyandose en la API
 * Y finalmente como services se movió a core en Drupal 8, por que esto es importante y que permitirá hacer en el futuro
+    </code></pre>
+  </section>
 </section>
 
+<section>
+  <section>
+    <h3>Seguir con: <a href="https://www.drupal.org/node/783236">Install D7</a></h3>
+  </section>
+  <section>
+    <h1>Drupal 7</h1>
+      <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
+drush dl -y services ; drush en -y services rest_server
+drush dl -y services_entity ; drush en -y services_entity
+drush dl -y libraries ; drush en -y libraries
+      </code></pre>
+      <p>El REST server viene con el módulo services, pero si queremos SOAP debemos bajar el módulo <a href="https://www.drupal.org/project/soap_server">SOAP Server</a></p>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h1>Drupal 8</h1>
+  </section>
+  <section>
+    <p><a href="https://www.drupal.org/project/restui">RestUI</a></p>
+  </section>
+</section>
+
+<section>
+  <section>
+    <p style="text-align: left;">Links:</p>
+      <ul>
+        <li><a href="https://www.ostraining.com/blog/drupal/services/">Drupal Services Module</a></li>
+        <li><a href="http://internetdevels.com/blog/drupal-7-application-with-phonegap">Drupal 7 application with PhoneGap</a></li>
+        <li><a href="https://drupalwatchdog.com/volume-4/issue-2/getting-started-services-using-views">Services Using Views (<a href="https://www.drupal.org/project/services_views">module</a>)</a></li>
+        <li><a href="https://dev.acquia.com/blog/web-services-drupal-8-core">Web services in Drupal 8</a></li>
+        <li><a href="http://data.agaric.com/powering-your-api-drupal-8">Powering Your API with Drupal 8</a></li>
+        <li><a href=""></a></li>
+      </ul>
+  </section>
 </section>
 
 			</div>
