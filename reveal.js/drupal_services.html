@@ -450,21 +450,29 @@ drush dl -y restui ; drush en -y restui
     <a href="files/services/drupal8_RESTui.png"><img src="files/services/drupal8_RESTui.png"/></a>
   </section>
   <section>
-    <p>Pendiente programación...</p>
-    <br>
-    <p>Originalmente usado como base: <a href="https://drupalize.me/blog/201401/introduction-restful-web-services-drupal-8">An Introduction to RESTful Web Services in Drupal 8 (by drupalize.me)</a></p>
-    <br>
-    <p>Articulos:</p>
-    <ul>
-      <li>D8 usa <a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>, no usa <a href="https://groups.drupal.org/node/284948">PUT (explicación de porque)</a></li>
-      <li>En el articulo de "<a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>" también vemos un método de login similar al usado en D7 para Streetlink...</li>
-    </ul>
+    <h3>Permisos del servicio</h3>
+    <p>People -> Permissions</p>
+    <a href="files/services/drupal8_RESTful_permissions.png"><img src="files/services/drupal8_RESTful_permissions.png"/></a>
   </section>
-</section>
-
-<section>
   <section>
-    <p style="text-align: left;">Links:</p>
+    <h3>Usando un servicio: GET</h3>
+    <p>URL: <span style="font-family: monospace; font-size: 60%;">http://drupal8.local//node/3?_format=json</span></p>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal8_Services_node_GET.png"><img src="files/services/drupal8_Services_node_GET.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal8_Services_node_GET_response.png"><img src="files/services/drupal8_Services_node_GET_response.png"/></a>
+    </ul>
+    <p>Resultado: <a href="files/services/drupal8_Services_node_GET_response.json" style="font-family: monospace; font-size: 60%;">drupal8_Services_node_GET_response.json</a></p>
+  </section>
+  <section>
+    <h3>Usando un servicio: POST</h3>
+  </section>
+  <section>
+    <h3><a href="http://enzolutions.com/articles/2014/12/16/how-to-create-a-rest-resource-in-drupal-8/">Como crear un REST resource</a></h3>
+  </section>
+  <section>
+    <p style="text-align: left;">Articulos:</p>
       <ul>
         <li><a href="https://www.drupal.org/node/736522">Documentación Services 3.x Drupal (muy completa)</a></li>
         <li><a href="https://www.ostraining.com/blog/drupal/services/">Drupal Services Module</a></li>
@@ -472,7 +480,13 @@ drush dl -y restui ; drush en -y restui
         <li><a href="https://drupalwatchdog.com/volume-4/issue-2/getting-started-services-using-views">Services Using Views</a> (<a href="https://www.drupal.org/project/services_views">module</a>)</li>
         <li><a href="https://dev.acquia.com/blog/web-services-drupal-8-core">Web services in Drupal 8</a></li>
         <li><a href="http://data.agaric.com/powering-your-api-drupal-8">Powering Your API with Drupal 8</a></li>
-        <li><a href=""></a></li>
+        <li><a href="https://drupalize.me/blog/201401/introduction-restful-web-services-drupal-8">Intro RESTful Web Services D8</a> (by drupalize.me)</li>
+        <li>Métodos REST disponibles para D8:
+          <ul style="font-size: 75%">
+            <li>D8 usa <a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>, no usa <a href="https://groups.drupal.org/node/284948">PUT (explicación de porque)</a></li>
+            <li>En el articulo de "<a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>" también vemos un método de login.</li>
+          </ul>
+        </li>
       </ul>
   </section>
 </section>
