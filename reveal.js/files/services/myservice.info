@@ -1,0 +1,4 @@
+name = MiServicio
+description = Servicio para crear reportes
+core = 7.x
+package = Services

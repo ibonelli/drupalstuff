@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * Implements hook_services_resources().
+ */
+function myservice_services_resources() {
+  $items = array(
+    'report' => array(
+      'operations' => array(
+        'create' => array(
+          'help' => 'Creating Report',
+          'callback' => '_create_report',
+          'access callback' => 'user_access',
+          'access arguments' => array('access content'),
+          'access arguments append' => FALSE,
+          'args' => array(
+            array(
+              'name' => 'report_data',
+              'type' => 'array',
+              'description' => 'Submited Report Details',
+              'source' => 'data',
+              'optional' => FALSE,
+            ),
+          ),
+        ),
+      ),
+    ),
+   );
+  return $items;
+ }
+
+function _create_report($report_data) {
+  $server_info =  services_server_info_object();
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Gotten data = <pre>@report_data</pre>',array('@report_data' => print_r($report_data, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  // Make sure we got the report data
+  if(empty($report_data)) {
+    watchdog('MiServicio', 'No data sent!',NULL,WATCHDOG_WARNING);
+    return array("response"=>"Failed, missing report data.");
+  }
+
+  // Create a new node to store report information
+  $new_node = new stdClass();
+  $new_node->type = "report";
+  $new_node->language = "und";
+  $new_node->title = "newWM";
+  $new_node->field_appearance = array("und"=>array(0 => array("value" => $report_data['field_appearance']["und"][0]["value"])));
+  // Lista de fields a modificar...
+  $new_node->field_your_name = array("und"=>array(0 => array("value" => $report_data['field_your_name']["und"][0]["value"])));
+  $new_node->field_your_email = array("und"=>array(0 => array("value" => $report_data['field_your_email']["und"][0]["value"])));
+
+  Global $base_url;
+
+  node_save($new_node);
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Created new node = ' . $new_node->nid,NULL,WATCHDOG_DEBUG);
+  }
+
+  // Saving the field_about collection
+  // At this point I have nid and I need to create field_about collection field
+  $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_about'));
+  $field_collection_item->setHostEntity('node', $new_node);
+  $field_collection_item->field_first_name[LANGUAGE_NONE][]['value'] = $report_data['field_about']['field_first_name']["und"][0]["value"];
+  // Nuevamente, lista de fields a modificar...
+  $field_collection_item->save();
+
+  // Saving created entity into the node
+  $new_node->field_about = array("und"=>array(0 => array("value" => $field_collection_item->item_id, "revision_id" => $field_collection_item->item_id)));
+
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Created entity = <pre>@entity</pre>',array('@entity' => print_r($field_collection_item, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_fc'));
+  $field_collection_item->setHostEntity('node', $new_node);
+  $field_collection_item->save();
+
+  // Saving created entity into the node
+  $new_node->field_fc = array("und"=>array(0 => array("value" => $field_collection_item->item_id, "revision_id" => $field_collection_item->item_id)));
+
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Created entity = <pre>@entity</pre>',array('@entity' => print_r($field_collection_item, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  // Updating the node with new title and field_collections
+  node_save($new_node);
+
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Updated node = <pre>@new_node</pre>',array('@new_node' => print_r($new_node, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  // Devolvemos el resultado del servicio
+  if ($new_node->nid) {
+    return array("response"=>"Ok","status"=>"200","node"=>$new_node->nid,"fc"=>$field_collection_item->item_id);
+  }
+  else
+    return array("response"=>"Failed");
+}

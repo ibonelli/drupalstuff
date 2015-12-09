@@ -84,8 +84,8 @@
     <p style="text-align: left; margin-left:4em;">Drupal 8</p>
     <ul style="font-size: 90%;">
       <li>¡Integrado en core!</li>
-      <li>Módulo: RESTful Web Services</li>
-      <li>Una vez habilitado: <br><span style="margin-left:4em;">?!?!</span></li>
+      <li>4 módulos ya integrados + <a href="https://www.drupal.org/project/restui">REST UI</a></li>
+      <li>Una vez habilitado: <br><span style="margin-left:4em;">Configuration -> Web services -> REST</span></li>
     </ul>
     <br><br>
     <p style="font-size: 75%;">Para Drupal7 también existe otro módulo llamado <br><a href="https://www.drupal.org/project/restws">RESTful Web Services</a>, pero no es tan usado.</p>
@@ -95,32 +95,338 @@
     <br><br>
     <h3>Servers</h3>
     <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST (Representational State Transfer)</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/SOAP">SOAP (Simple Object Access Protocol)</a></li>
     </ul>
   </section>
   <section>
-    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
-Esta charla comenzará desde el principio:
-* Como usarlos en Drupal 7
-* Como desarrollar un módulo apoyandose en la API
-* Y finalmente como services se movió a core en Drupal 8, por que esto es importante y que permitirá hacer en el futuro
-    </code></pre>
+    <h3>SOAP (Simple Object Access Protocol)</h3>
+    <ul>
+      <li>Originalmente diseñado por Microsoft</li>
+      <li>Luego pasado al IETF para estandarizarlo</li>
+      <li>Solo trabaja con XML para pedidos y respuestas</li>
+      <li>Puede trabajar sobre diversos protocolos. Normalmente trabaja sobre HTTP, se usa sobre SMTP y otros...</li>
+      <li>Mas complicado, pero mas robusto</li>
+      <li>Aconsejable para aplicaciones que necesitan alta confiabilidad como un giro bancario desde mi teléfono.</li>
+    </ul>
+  </section>
+  <section>
+    <h3>REST (Representational State Transfer)</h3>
+    <ul>
+      <li>Nació luego de SOAP como una alternativa sencilla</li>
+      <li>Pensado 100% para la web</li>
+      <li>Con un esquema basado en HTTP: Soporta GET, POST, PUT y DELETE</li>
+      <li>Soporta intercambios en JSON, XML, CSV, RSS, etc...</li>
+      <li>Se debe describir la interface en forma externa</li>
+      <li>Mejor performance y escalabilidad. ¡Permite caching!</li>
+      <li>Mas sencillo para trabajar con JavaScript (¡no XML!)</li>
+    </ul>
+  </section>
+  <section>
+    <h3>REST vs SOAP</h3>
+    <br>
+    <p style="text-align: left;">Resumiendo:</p>
+    <ul>
+      <li>La mayoría de las APIs fueron migrando a REST</li>
+      <li>REST es mas sencillo de apreender y usar</li>
+      <li>El soportar caching lo hace muy atractivo</li>
+    </ul>
+    <br><br>
+    <p style="text-align: left;">Articulos:</p>
+    <ul>
+      <li><a href="http://spf13.com/post/soap-vs-rest">The difference between soap and rest</a></li>
+      <li><a href="http://searchsoa.techtarget.com/tip/REST-vs-SOAP-How-to-choose-the-best-Web-service">How to choose the best Web service</a></li>
+      <li><a href="http://blog.smartbear.com/apis/understanding-soap-and-rest-basics/">Understanding SOAP and REST Basics And Differences</a></li>
+    </ul>
   </section>
 </section>
 
 <section>
   <section>
-    <h3>Seguir con: <a href="https://www.drupal.org/node/783236">Install D7</a></h3>
+    <h1>Drupal 7</h1>
+    <h1>(configurando)</h1>
   </section>
   <section>
-    <h1>Drupal 7</h1>
-      <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
+    <h3>Install D7</h3>
+    <br>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
 drush dl -y services ; drush en -y services rest_server
 drush dl -y services_entity ; drush en -y services_entity
 drush dl -y libraries ; drush en -y libraries
-      </code></pre>
-      <p>El REST server viene con el módulo services, pero si queremos SOAP debemos bajar el módulo <a href="https://www.drupal.org/project/soap_server">SOAP Server</a></p>
+    </code></pre>
+    <br>
+    <p>El REST server viene con el módulo services, pero si queremos SOAP debemos bajar el módulo <a href="https://www.drupal.org/project/soap_server">SOAP Server</a></p>
+  </section>
+  <section>
+    <h3>Creando un servicio (I)</h3>
+    <p>Structure -> Services</p>
+    <a href="files/services/drupal7_Services_config1.png"><img src="files/services/drupal7_Services_config1.png"/></a>
+  </section>
+  <section>
+    <h3>Creando un servicio (II)</h3>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal7_Services_config2a.png"><img src="files/services/drupal7_Services_config2a.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal7_Services_config2b.png"><img src="files/services/drupal7_Services_config2b.png"/></a>
+    </ul>
+  </section>
+  <section>
+    <h3>Configurando un servicio: Node (I)</h3>
+    <p style="font-family: monospace; font-size: 60%;">admin/structure/services/list/myservice/resources</p>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal7_Services_config3a.png"><img src="files/services/drupal7_Services_config3a.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <a href="files/services/drupal7_Services_config3b.png"><img src="files/services/drupal7_Services_config3b.png"/></a>
+    </ul>
+  </section>
+  <!-- For full images use class="stretch", example: !-->
+  <section>
+    <img class="stretch" src="files/services/drupal7_Services_config3a.png"/>
+  </section>
+  <section>
+    <img class="stretch" src="files/services/drupal7_Services_config3b.png"/>
+  </section>
+  <section>
+    <h3>Autenticación:</h3>
+    <p style="font-size: 80%;">(<a href="files/services/drupal7_Services_config2a.png">Session authentication</a>)</p>
+    <p style="font-size: 90%; text-align: left;">"Choose which authentication schemes that should be used with your endpoint. If no authentication method is selected all requests will be done by an <b style="color: lightblue;">anonymous user</b>."</p>
+    <p>Esto significa que el usuario que hace el pedido es annonymous para Drupal. Por lo tanto los permisos sobre nodos (en este caso) nos van a afectar.</p>
+    <p>Una alternativa será usar Basic Auth y otra hacer un login via REST service.</p>
+  </section>
+  <section>
+    <h3>Permisos para anonymous:</h3>
+    <p style="font-family: monospace; font-size: 60%;">/admin/people/permissions</p>
+    <a href="files/services/drupal7_Services_permissions_anonymous.png"><img src="files/services/drupal7_Services_permissions_anonymous.png"/></a>
+  </section>
+  <section>
+    <h3>Configurando un servicio: Node (II)</h3>
+    <ul>
+      <li><b>Create</b>: <br><span style="font-family: monospace; font-size: 60%; margin-left:3em;">POST /[endpoint_path]/[resource] + BodyData</span></li>
+      <li><b>Retrieve</b>: <br><span style="font-family: monospace; font-size: 60%; margin-left:3em;">GET /[endpoint_path]/[resource]/[resource_id]</span></li>
+      <li><b>Update</b>: <br><span style="font-family: monospace; font-size: 60%; margin-left:3em;">PUT /[endpoint_path]/[resource]/[resource_id] + BodyData</span></li>
+      <li><b>Delete</b>: <br><span style="font-family: monospace; font-size: 60%; margin-left:3em;">DELETE /[endpoint_path]/[resource]/[resource_id]</span></li>
+      <li><b>Index</b>: <br><span style="font-family: monospace; font-size: 60%; margin-left:3em;">GET /[endpoint_path]/[resource]</span></li>
+    </ul>
+    <br><br>
+    <p style="font-size: 60%;">Drupal service's docs: <a href="https://www.drupal.org/node/783254">Working with REST Server</a></p>
+  </section>
+  <!-- example end !-->
+  <section>
+    <h3>Herramientas</h3>
+    <p>(agregados a Firefox)</p>
+    <br>
+    <ul>
+      <li><a href="https://addons.mozilla.org/en-US/firefox/addon/poster/?src=userprofile">Poster</a> (Poder hacer POST p/ej)</li>
+      <li><a href="https://addons.mozilla.org/en-US/firefox/addon/jsonovich/">JSONovich</a> (JSON Viewer)</li>
+      <li><a href="http://json.bloople.net/">JSON2HTML</a> (online y <a href="https://github.com/bloopletech/json2html/tree/master">local si queremos</a>)</li>
+      <li><a href="http://jsonviewer.stack.hu/">JSON collapse/expand</a> (solo servicio online)</li>
+    </ul>
+  </section>
+  <section>
+    <h3>Poster</h3>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>POST content:</p>
+      <a href="files/services/poster_POST.png"><img src="files/services/poster_POST.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>Configurar headers:</p>
+      <a href="files/services/poster_headers.png"><img src="files/services/poster_headers.png"/></a>
+    </ul>
+  </section>
+  <section>
+    <h3>Ver un Nodo (retrieve)</h3>
+    <p style="font-family: monospace; font-size: 60%;">GET http://misitio.com/api/node/13.json</p>
+    <img class="stretch" src="files/services/drupal7_Services_node_GET.png"/>
+  </section>
+  <section>
+    <h3>Creando Nodo (create)</h3>
+    <p style="font-family: monospace; font-size: 60%;">GET http://misitio.com/api/node</p>
+    <p style="font-family: monospace; font-size: 60%;">JSON data: <a href="files/services/post_node.json">{"title":"Mi nodo via REST","type":"page",...}</a></p>
+    <p style="font-size: 60%;"><b style="color: orange;">IMPORTANTE</b>: ¡Ser anónimo! (private window => no logueado)</p>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>POST:</p>
+      <a href="files/services/poster_POST.png"><img src="files/services/poster_POST.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>Resultado:</p>
+      <a href="files/services/poster_POST_result.png"><img src="files/services/poster_POST_result.png"/></a>
+      <p style="font-family: monospace; font-size: 60%;">Resultado: "200 OK"</p>
+      <p style="font-family: monospace; font-size: 60%;">JSON: {"nid":"54","uri":"http://drupal7s.local/api/node/54"}</p>
+    </ul>
+  </section>
+  <section>
+    <h3>¿Como saber la estructura del nodo?</h3>
+    <p>Usamos el módulo <a href="https://www.drupal.org/project/devel">devel</a></p>
+    <a href="files/services/drupal7_Devel.png"><img src="files/services/drupal7_Devel.png"/></a>
+  </section>
+  <section>
+    <h3>Usando Basic Auth (config)</h3>
+    <p>Usamos el módulo <a href="https://www.drupal.org/project/devel">Services Basic Authentication</a></p>
+    <p style="text-align: left;">Pasos:</p>
+    <ul style="font-size: 80%;">
+      <li>Una vez instalado, configuramos el servicio para usar Basic Auth: <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">http://misitio.com/admin/structure/services/list/myservice</span><br><span style="margin-left:50px;">Hacer check en la casilla "HTTP basic authentication"</span></li>
+      <li>Agregar un usuario (en mi caso <span style="font-family: monospace; font-size: 80%;">ignacio/nopass</span>)</li>
+      <li>Agregar permisos para el tipo de contenido a usar (article):</li>
+    </ul>
+    <a href="files/services/drupal7_Services_permissions_autheticated.png"><img src="files/services/drupal7_Services_permissions_autheticated.png"/></a>
+  </section>
+  <section>
+    <h3>Usando Basic Auth (POST)</h3>
+    <p style="text-align: left;"><a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic auth protocol</a>:</p>
+    <ul style="font-size: 80%;">
+      <li>Usamos un header especial:
+        <ul style="font-family: monospace; font-size: 80%; margin-left:50px;">
+          <li>Header: "Authorization"</li>
+          <li>Content: "Basic &lt;base64 de username:password&gt;"</li>
+        </ul>
+      </li>
+      <li>En un shell: <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">echo "ignacio:nopass" | base64</span></li>
+      <li>Resultado: "<span style="font-family: monospace; font-size: 80%;">Authorization: Basic aWduYWNpbzpub3Bhc3MK</span>"</li>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>POST content:</p>
+      <a href="files/services/poster_POST_BasicAuth0.png"><img src="files/services/poster_POST_BasicAuth0.png"/></a>
+      <a href="files/services/poster_POST_BasicAuth1.png"><img src="files/services/poster_POST_BasicAuth1.png"/></a>
+    </ul>
+    <ul class="col" style="width: 400px; display: inline-block; vertical-align: top; list-style-type: none;">
+      <p>Configurar headers:</p>
+      <a href="files/services/poster_POST_BasicAuth2.png"><img src="files/services/poster_POST_BasicAuth2.png"/></a>
+      <ul>
+        <li style="font-family: monospace; font-size: 60%;">http://misitio.com/api/node</li>
+        <li style="font-family: monospace; font-size: 60%;">JSON data: <a href="files/services/post_node_article.json">{"title"...}</a></li>
+      </ul>
+    </ul>
+  </section>
+  <section>
+    <h3>Métodos de autenticación:</h3>
+    <ul style="font-size: 90%">
+      <li><b style="color: lightblue;">No auth</b>: Ok para GET, puede ser peligroso para POST.</li>
+      <li><b style="color: lightblue;">Basic auth</b>: Simple, pero nada va cifrado (por ser HTTP).</li>
+      <li><b style="color: lightblue;">Drupal's auth</b>: Un poco mas complicado, <br><span style="margin-left:220px;">require exponer user/system:</span>
+      <!-- Ejemplo de uso en <Tincan-Docs>/ClientsStuff/StreetLink/MobileApp_Work/submit_data.txt !-->
+        <ol style="font-size: 90%">
+          <li>user/login: <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">{"username":"&lt;user&gt;","password":"&lt;pass&gt;"}</span><br><span style="font-family: monospace; font-size: 80%; margin-left:80px;">Retorna: sessid, session_name y token</span></li>
+          <li>system/connect: <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">Toma header "X-CSRF-Token" con el valor recibido &lt;token&gt;</span></li>
+          <li>Operaciones logueado... <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">Operaciones logueado con el header "X-CSRF-Token"</span></li>
+          <li>user/logout: <br><span style="font-family: monospace; font-size: 80%; margin-left:50px;">Toma header "X-CSRF-Token" y también "Cookie"</span> <br><span style="font-family: monospace; font-size: 80%; margin-left:80px;">(formado por &lt;session_name&gt;=&lt;sessid&gt;)</span></li>
+        </ol>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h3>Services entities</h3>
+    <p style="font-size: 80%">(<a href="https://www.drupal.org/project/services_entity">módulo que extiende services</a>)</p>
+    <p>Nos permite extenter los servicios <br>a cualquier tipo de entidad:</p>
+    <p style="font-size: 60%">Incluso extensiones como <a href="https://www.drupal.org/project/field_collection">field collection</a></p>
+    <a href="files/services/drupal7_Services_Entity.png"><img src="files/services/drupal7_Services_Entity.png"/></a>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h1>Drupal 7</h1>
+    <h1>(programando)</h1>
+  </section>
+  <section>
+    <p style="text-align: left;">Como lo hacemos:</p>
+    <ul>
+      <li>Crearemos via código un servicio a exponer</li>
+      <li>Va a compartir la misma estructura que vimos hasta ahora</li>
+      <li>Lo que hace el servicio lo podremos manejar nosotros</li>
+    </ul>
+  </section>
+  <section>
+    <p style="text-align: left;">Implementamos hook_services_resources():</p>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="php">
+function myintegration_services_resources() {
+  $items = array(
+    'report' => array(
+      'operations' => array(
+        'create' => array(
+          'help' => 'Creating Report',
+          'callback' => '_create_report',
+          'access callback' => 'user_access',
+          'access arguments' => array('access content'),
+          'access arguments append' => FALSE,
+          'args' => array(
+            array(
+              'name' => 'report_data',
+              'type' => 'array',
+              'description' => 'Submited Report Details',
+              'source' => 'data',
+              'optional' => FALSE,
+            ),
+          ),
+        ),
+      ),
+    ),
+   );
+  return $items;
+ }
+    </code></pre>
+  </section>
+  <section>
+    <p style="text-align: left;">Implementamos la funcion que maneja el servicio:</p>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="php">
+function _create_report($report_data) {
+  $server_info =  services_server_info_object();
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Gotten data = <pre>@report_data</pre>',array('@report_data' => print_r($report_data, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  // Make sure we got the report data
+  if(empty($report_data)) {
+    watchdog('MiServicio', 'No data sent!',NULL,WATCHDOG_WARNING);
+    return array("response"=>"Failed, missing report data.");
+  }
+
+  // Create a new node to store report information
+  $new_node = new stdClass();
+  $new_node->type = "report";
+  // Continua...
+    </code></pre>
+  </section>
+  <section>
+    <p style="text-align: left;">Como debe terminar mi servicio:</p>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="php">
+  // Continuando...
+  if (!empty($server_info->debug)) {
+    watchdog('MiServicio', 'Updated node = <pre>@new_node</pre>',array('@new_node' => print_r($new_node, TRUE)),WATCHDOG_DEBUG);
+  }
+
+  // Devolvemos el resultado del servicio
+  if ($new_node->nid) {
+    return array("response"=>"Ok","status"=>"200","node"=>$new_node->nid,"fc"=>$field_collection_item->item_id);
+  }
+  else
+    return array("response"=>"Failed");
+}
+    </code></pre>
+  </section>
+  <section>
+    <p style="text-align: left;">Ejemplo completo:</p>
+    <ul>
+      <li><a href="files/services/myservice.info">myservice.info</a></li>
+      <li><a href="files/services/myservice.module">myservice.module</a></li>
+    </ul>
+    <br>
+    <p style="text-align: left;">Instalando:</p>
+    <img src="files/services/drupal7_Services_custom_report_install.png"/></a>
+  </section>
+  <section>
+    <p style="text-align: left;">Nuestro servicio dentro de "Services":</p>
+    <a href="files/services/drupal7_Services_custom_report.png"><img src="files/services/drupal7_Services_custom_report.png"/></a>
+  </section>
+  <section>
+    <p>Referencias:</p>
+    <ul>
+      <li><a href="http://pingv.com/blog/an-introduction-drupal-7-restful-services">Simple explicación de como extender pogramando los pedidos RETRIEVE/GET</a></li>
+      <li><a href="https://www.drupal.org/node/1334758">Como crear nodos manejando autenticación (Drupal's docs)</a></li>
+      <li><a href="http://drupalgap.org/node/187">Ejemplo de DrupalGap de extender services (extensa documentación)</a></li>
+      <li><a href="http://www.qed42.com/blog/advanced-services-tutorial">Ejemplo avanzado de como extender services</a></li>
+    </ul>
   </section>
 </section>
 
@@ -129,7 +435,30 @@ drush dl -y libraries ; drush en -y libraries
     <h1>Drupal 8</h1>
   </section>
   <section>
-    <p><a href="https://www.drupal.org/project/restui">RestUI</a></p>
+    <h3>Install D8</h3>
+    <br>
+    <pre style="width: 900px;"><code data-trim style="font-size: 24px; width: 900px;" class="bash">
+drush en -y hal rest serialization basic_auth
+drush dl -y restui ; drush en -y restui
+    </code></pre>
+    <br>
+    <p>Se puede trabajar configurando manualmente <br>el archivo <b>ARCHIVO!!</b>, pero gracias a <a href="https://www.drupal.org/project/restui">RESTui</a> <br>podemos trabajar como en D7.</p>
+  </section>
+  <section>
+    <h3>Creando un servicio</h3>
+    <p>Configuration -> Web services -> REST</p>
+    <a href="files/services/drupal8_RESTui.png"><img src="files/services/drupal8_RESTui.png"/></a>
+  </section>
+  <section>
+    <p>Pendiente programación...</p>
+    <br>
+    <p>Originalmente usado como base: <a href="https://drupalize.me/blog/201401/introduction-restful-web-services-drupal-8">An Introduction to RESTful Web Services in Drupal 8 (by drupalize.me)</a></p>
+    <br>
+    <p>Articulos:</p>
+    <ul>
+      <li>D8 usa <a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>, no usa <a href="https://groups.drupal.org/node/284948">PUT (explicación de porque)</a></li>
+      <li>En el articulo de "<a href="https://www.drupal.org/node/2405657">GET, POST, PATCH y DELETE</a>" también vemos un método de login similar al usado en D7 para Streetlink...</li>
+    </ul>
   </section>
 </section>
 
@@ -137,9 +466,10 @@ drush dl -y libraries ; drush en -y libraries
   <section>
     <p style="text-align: left;">Links:</p>
       <ul>
+        <li><a href="https://www.drupal.org/node/736522">Documentación Services 3.x Drupal (muy completa)</a></li>
         <li><a href="https://www.ostraining.com/blog/drupal/services/">Drupal Services Module</a></li>
         <li><a href="http://internetdevels.com/blog/drupal-7-application-with-phonegap">Drupal 7 application with PhoneGap</a></li>
-        <li><a href="https://drupalwatchdog.com/volume-4/issue-2/getting-started-services-using-views">Services Using Views (<a href="https://www.drupal.org/project/services_views">module</a>)</a></li>
+        <li><a href="https://drupalwatchdog.com/volume-4/issue-2/getting-started-services-using-views">Services Using Views</a> (<a href="https://www.drupal.org/project/services_views">module</a>)</li>
         <li><a href="https://dev.acquia.com/blog/web-services-drupal-8-core">Web services in Drupal 8</a></li>
         <li><a href="http://data.agaric.com/powering-your-api-drupal-8">Powering Your API with Drupal 8</a></li>
         <li><a href=""></a></li>
