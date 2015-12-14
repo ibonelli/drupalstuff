@@ -28,7 +28,7 @@
   # Removerlo para poder navegar el sitio en HTTP
   SetEnvIf X-Forwarded-Proto "^https$" HTTPS=on
   <If "env('HTTPS') != 'on'">
-    RedirectPermanent / https://mantis.tincan.co.uk/
+    RedirectPermanent / https://misitio.midominio.com/
   </If>
 
   DocumentRoot /var/www/misitio/public_html
